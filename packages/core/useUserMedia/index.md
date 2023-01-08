@@ -26,6 +26,23 @@ watchEffect(() => {
 })
 ```
 
+### Constraints
+
+```js
+import { useUserMedia } from '@vueuse/core'
+
+const { stream, start } = useUserMedia({
+  video: {
+    facingMode: 'environment'
+  },
+  audio: {
+    sampleRate: 44100
+  }
+})
+
+start()
+```
+
 ### Devices
 
 ```js
@@ -43,5 +60,18 @@ const currentMicrophone = computed(() => microphones.value[0]?.deviceId)
 const { stream } = useUserMedia({
   videoDeviceId: currentCamera,
   audioDeviceId: currentMicrophone,
+})
+```
+or with constraints:
+```js
+const { stream } = useUserMedia({
+  video: {
+    deviceId: currentCamera,
+    // ...other video constraints
+  },
+  audio: {
+    deviceId: currentMicrophone,
+    // ...other audio constraints
+  }
 })
 ```

@@ -37,6 +37,12 @@ export interface UseUserMediaOptions extends ConfigurableNavigator {
    * @default undefined
    */
   audioDeviceId?: MaybeRef<string | undefined | false | 'none'>
+  /**
+   * Request for types of media permissions
+   *
+   * @default undefined
+   */
+  constraints?: MediaStreamConstraints
 }
 
 /**
@@ -71,6 +77,7 @@ export function useUserMedia(options: UseUserMediaOptions = {}) {
     stream.value = await navigator!.mediaDevices.getUserMedia({
       video: getDeviceOptions(videoDeviceId),
       audio: getDeviceOptions(audioDeviceId),
+      ...options.constraints,
     })
     return stream.value
   }
